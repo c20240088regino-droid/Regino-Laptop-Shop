@@ -1,4 +1,4 @@
-# Northstar Laptop Shop
+# Regino Laptop Shop
 
 **Live site:** Add your published site URL here.
 
