@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f3ed">
+    <meta name="description"
+        content="Thoughtfully chosen laptops for big ideas, everyday work, and everywhere in between.">
+    <title>Laptops for what's next</title>
+
+    <!-- ===== STARTER HEAD: keep these exact tags ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @custom-variant dark (&:where(.dark, .dark *));
+
+        @theme {
+            --color-paper: #f5f3ed;
+            --color-ink: #17231e;
+            --color-forest: #244b3e;
+            --color-lime: #d7ed76;
+            --font-display: "Georgia", "Times New Roman", serif;
+            --font-body: "Arial", "Helvetica Neue", sans-serif;
+        }
+
+        :root {
+            color-scheme: light;
+            --paper: #f5f3ed;
+            --surface: #fffefa;
+            --ink: #17231e;
+            --muted: #64716b;
+            --line: #dedfd5;
+            --forest: #244b3e;
+            --forest-deep: #19392f;
+            --lime: #d7ed76;
+            --card: #e9eee7;
+            --shadow: 0 24px 70px rgb(23 35 30 / 12%);
+        }
+
+        :root.dark {
+            color-scheme: dark;
+            --paper: #111a16;
+            --surface: #19241e;
+            --ink: #f1f2e9;
+            --muted: #a7b2aa;
+            --line: #334139;
+            --forest: #d7ed76;
+            --forest-deep: #c4dc62;
+            --lime: #223b31;
+            --card: #202d26;
+            --shadow: 0 24px 70px rgb(0 0 0 / 25%);
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: var(--font-body);
+            font-size: 15px;
+            line-height: 1.6;
+            transition: background-color .25s ease, color .25s ease;
+        }
+        a { color: inherit; text-decoration: none; }
+        button, input, textarea { font: inherit; }
+        button, a { -webkit-tap-highlight-color: transparent; }
+        button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+            outline: 3px solid #8a9e3a;
+            outline-offset: 4px;
+        }
+        .skip-link {
+            position: absolute;
+            top: -4rem;
+            left: 1rem;
+            z-index: 20;
+            padding: .7rem 1rem;
+            background: var(--ink);
+            color: var(--paper);
+        }
+        .skip-link:focus { top: 1rem; }
+        #progressBar {
+            position: fixed;
+            inset: 0 auto auto 0;
+            z-index: 30;
+            width: 100%;
+            height: 3px;
+            transform: scaleX(0);
+            transform-origin: left center;
+            background: #a3bd41;
+        }
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid var(--line);
+            background: color-mix(in srgb, var(--paper) 91%, transparent);
+            backdrop-filter: blur(16px);
+        }
+        .nav-wrap, .container {
+            width: min(1160px, calc(100% - 48px));
+            margin-inline: auto;
+        }
+        .nav-wrap {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: .12em;
+        }
+        .brand-mark {
+            display: grid;
+            width: 30px;
+            height: 30px;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--forest);
+            color: var(--paper);
+            font-size: 15px;
+            letter-spacing: 0;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: clamp(18px, 3vw, 38px);
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .nav-links a:hover, .footer-links a:hover { color: var(--forest); }
+        .nav-actions { display: flex; align-items: center; gap: 10px; }
+        .icon-button {
+            display: grid;
+            width: 40px;
+            height: 40px;
+            place-items: center;
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            background: transparent;
+            color: var(--ink);
+            cursor: pointer;
+            font-size: 17px;
+        }
+        .icon-button:hover { background: var(--card); }
+        .button {
+            display: inline-flex;
+            min-height: 48px;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 21px;
+            border: 1px solid var(--forest);
+            border-radius: 999px;
+            background: var(--forest);
+            color: var(--paper);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            transition: transform .2s ease, background-color .2s ease;
+        }
+        .button:hover { transform: translateY(-2px); background: var(--forest-deep); }
+        .button-light { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+        .button-light:hover { background: var(--forest); border-color: var(--forest); }
+        .button-outline { border-color: var(--line); background: transparent; color: var(--ink); }
+        .button-outline:hover { background: var(--card); }
+        .button-arrow { font-size: 17px; line-height: 1; }
+        .replay-button {
+            margin-top: 16px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .replay-button:hover { color: var(--forest); }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(64px, 9vw, 112px) 0 78px;
+        }
+        .hero::before {
+            position: absolute;
+            top: 8%;
+            right: -9%;
+            width: min(56vw, 680px);
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: var(--lime);
+            content: "";
+            opacity: .58;
+        }
+        .hero-grid {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1.05fr;
+            align-items: center;
+            gap: clamp(32px, 6vw, 80px);
+        }
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--forest);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+        .eyebrow::before { width: 22px; height: 1px; background: currentColor; content: ""; }
+        h1, h2, h3, p { margin-top: 0; }
+        .hero h1 {
+            max-width: 590px;
+            margin: 20px 0 20px;
+            font-family: var(--font-display);
+            font-size: clamp(3.3rem, 7vw, 6.5rem);
+            font-weight: 400;
+            letter-spacing: -.075em;
+            line-height: .98;
+        }
+        .hero h1 em { color: var(--forest); font-weight: 400; }
+        .hero-copy {
+            max-width: 425px;
+            margin-bottom: 30px;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .hero-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+        .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 34px; color: var(--muted); font-size: 12px; }
+        .avatar-stack { display: flex; padding-left: 4px; }
+        .avatar-stack span {
+            display: grid;
+            width: 27px;
+            height: 27px;
+            margin-left: -5px;
+            place-items: center;
+            border: 2px solid var(--paper);
+            border-radius: 50%;
+            background: #d8c6a9;
+            color: #23382f;
+            font-size: 9px;
+            font-weight: 800;
+        }
+        .avatar-stack span:nth-child(2) { background: #c5d5ba; }
+        .avatar-stack span:nth-child(3) { background: #e2bfa9; }
+        .hero-visual {
+            position: relative;
+            min-height: 415px;
+            display: grid;
+            place-items: center;
+        }
+        .hero-image-wrap {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 48% 48% 24px 24px;
+            background: #d9e3d5;
+            box-shadow: var(--shadow);
+            transform: rotate(2deg);
+        }
+        .hero-image-wrap img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1.12 / 1;
+            object-fit: cover;
+        }
+        .floating-note {
+            position: absolute;
+            right: -8px;
+            bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+        }
+        .note-icon { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 50%; background: var(--lime); font-size: 18px; }
+        .floating-note strong, .floating-note small { display: block; }
+        .floating-note strong { font-size: 12px; }
+        .floating-note small { color: var(--muted); font-size: 10px; }
+
+        .trust-strip { border-block: 1px solid var(--line); }
+        .trust-inner {
+            display: flex;
+            min-height: 76px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+        .trust-inner strong { color: var(--ink); font-size: 12px; }
+        .trust-item { display: flex; align-items: center; gap: 9px; }
+        .trust-check { color: var(--forest); font-size: 16px; }
+        .section { padding: clamp(76px, 10vw, 126px) 0; }
+        .section-head {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 38px;
+        }
+        .section-heading { max-width: 560px; }
+        .section-heading h2 {
+            margin: 14px 0 12px;
+            font-family: var(--font-display);
+            font-size: clamp(2.4rem, 4.7vw, 4.2rem);
+            font-weight: 400;
+            letter-spacing: -.06em;
+            line-height: 1.04;
+        }
+        .section-heading p { max-width: 470px; margin-bottom: 0; color: var(--muted); line-height: 1.8; }
+        .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .product-card {
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--surface);
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+        .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+        .product-image { position: relative; overflow: hidden; background: var(--card); }
+        .product-image img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1.3 / 1;
+            object-fit: cover;
+            transition: transform .4s ease;
+        }
+        .product-card:hover .product-image img { transform: scale(1.04); }
+        .product-label {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: var(--surface);
+            color: var(--ink);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+        .product-content { padding: 20px 20px 18px; }
+        .product-topline { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+        .product-topline h3 { margin-bottom: 5px; font-family: var(--font-display); font-size: 23px; font-weight: 400; letter-spacing: -.04em; }
+        .price { color: var(--forest); font-size: 14px; font-weight: 800; white-space: nowrap; }
+        .product-content p { min-height: 46px; margin-bottom: 16px; color: var(--muted); font-size: 12px; }
+        .specs { display: flex; flex-wrap: wrap; gap: 7px; padding-top: 14px; border-top: 1px solid var(--line); }
+        .specs span { padding: 5px 8px; border-radius: 5px; background: var(--card); color: var(--muted); font-size: 10px; }
+        .product-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 15px; color: var(--forest); font-size: 12px; font-weight: 800; }
+
+        .about-section { background: var(--forest); color: #f5f3ed; }
+        .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: clamp(40px, 8vw, 100px); }
+        .about-section .eyebrow { color: var(--lime); }
+        .about-section h2 { margin: 16px 0 0; font-family: var(--font-display); font-size: clamp(2.7rem, 5vw, 4.6rem); font-weight: 400; letter-spacing: -.065em; line-height: 1.04; }
+        .about-copy > p { max-width: 540px; margin-bottom: 26px; color: rgb(245 243 237 / 76%); line-height: 1.9; }
+        .benefit-list { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 28px; margin: 0 0 30px; padding: 0; list-style: none; }
+        .benefit-list li { display: flex; gap: 11px; color: rgb(245 243 237 / 88%); font-size: 12px; }
+        .benefit-list b { display: block; margin-bottom: 3px; color: #fff; font-size: 13px; }
+        .benefit-icon { color: var(--lime); font-size: 17px; }
+        .about-section .button { border-color: var(--lime); background: var(--lime); color: #17231e; }
+
+        .contact-section { padding-bottom: clamp(76px, 9vw, 112px); }
+        .contact-panel {
+            display: grid;
+            grid-template-columns: .88fr 1.12fr;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: var(--surface);
+        }
+        .contact-intro { padding: clamp(28px, 5vw, 58px); background: var(--card); }
+        .contact-intro h2 { margin: 15px 0 14px; font-family: var(--font-display); font-size: clamp(2.3rem, 4vw, 3.6rem); font-weight: 400; letter-spacing: -.06em; line-height: 1.05; }
+        .contact-intro p { max-width: 330px; margin-bottom: 30px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+        .contact-email { color: var(--forest); font-size: 13px; font-weight: 700; }
+        .contact-form { display: grid; gap: 17px; padding: clamp(28px, 5vw, 58px); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .field { display: grid; gap: 7px; }
+        .field label { font-size: 11px; font-weight: 700; }
+        .field input, .field textarea {
+            width: 100%;
+            border: 1px solid var(--line);
+            border-radius: 9px;
+            background: var(--paper);
+            color: var(--ink);
+            padding: 12px 13px;
+            font-size: 13px;
+        }
+        .field textarea { min-height: 118px; resize: vertical; }
+        .field input::placeholder, .field textarea::placeholder { color: var(--muted); opacity: .8; }
+        .contact-form .button { justify-self: start; }
+        .form-note { margin: -4px 0 0; color: var(--muted); font-size: 10px; }
+
+        .site-footer { border-top: 1px solid var(--line); }
+        .footer-inner { display: flex; min-height: 96px; align-items: center; justify-content: space-between; gap: 20px; }
+        .footer-copy { margin: 0; color: var(--muted); font-size: 11px; }
+        .footer-links { display: flex; gap: 22px; color: var(--muted); font-size: 11px; }
+
+        @media (max-width: 800px) {
+            .hero-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+            .hero-visual { min-height: 330px; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+            .product-card:last-child { grid-column: 1 / -1; width: calc(50% - 10px); }
+            .about-grid { grid-template-columns: 1fr; gap: 28px; }
+            .about-section h2 { max-width: 600px; }
+        }
+        @media (max-width: 600px) {
+            .nav-wrap, .container { width: min(100% - 36px, 480px); }
+            .nav-wrap { min-height: 68px; gap: 12px; }
+            .brand { gap: 7px; font-size: 11px; }
+            .brand-mark { width: 27px; height: 27px; }
+            .nav-links { gap: 14px; font-size: 11px; }
+            .nav-links li:nth-child(2) { display: none; }
+            .nav-actions { gap: 6px; }
+            .icon-button { width: 36px; height: 36px; }
+            .nav-actions .button { min-height: 38px; padding-inline: 12px; font-size: 11px; }
+            .hero { padding: 60px 0 52px; }
+            .hero-grid { grid-template-columns: 1fr; }
+            .hero h1 { max-width: 490px; font-size: clamp(3.4rem, 16vw, 5.2rem); }
+            .hero-copy { max-width: 420px; font-size: 14px; }
+            .hero-visual { min-height: 0; margin: 4px 10px 12px; }
+            .hero-image-wrap { max-width: 440px; }
+            .hero-image-wrap img { aspect-ratio: 1.25 / 1; }
+            .floating-note { right: -9px; bottom: 4px; padding: 10px 12px; }
+            .trust-inner { min-height: 66px; justify-content: center; flex-wrap: wrap; gap: 8px 18px; padding-block: 12px; }
+            .trust-inner > strong { width: 100%; text-align: center; }
+            .trust-item { font-size: 10px; }
+            .section { padding-block: 72px; }
+            .section-head { align-items: start; flex-direction: column; margin-bottom: 26px; }
+            .section-head > .button { min-height: 42px; }
+            .products-grid { grid-template-columns: 1fr; gap: 14px; }
+            .product-card:last-child { grid-column: auto; width: auto; }
+            .product-image img { aspect-ratio: 1.5 / 1; }
+            .product-content p { min-height: 0; }
+            .about-section h2 { font-size: 3.2rem; }
+            .benefit-list { gap: 18px 12px; }
+            .benefit-list li { font-size: 11px; }
+            .contact-panel { grid-template-columns: 1fr; }
+            .contact-intro { padding: 30px 24px; }
+            .contact-form { padding: 26px 24px 30px; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer-inner { min-height: 110px; align-items: start; justify-content: center; flex-direction: column; gap: 8px; padding-block: 20px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+        }
+    </style>
+    <!-- ===== END STARTER HEAD ===== -->
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div id="progressBar" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <nav class="nav-wrap" aria-label="Main navigation">
+            <a class="brand" href="#top" aria-label="Regino Shop home">
+                <span class="brand-mark" aria-hidden="true">R</span>
+                <span>Regino Laptop Shop</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#top">Home</a></li>
+                <li><a href="#work">Laptop</a></li>
+                <li><a href="#about">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="icon-button" id="darkModeToggle" type="button" aria-label="Switch to dark mode"
+                    aria-pressed="false">◐</button>
+                <a class="button" href="#work">Laptop Shop <span class="button-arrow" aria-hidden="true">↗</span></a>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section class="hero" id="top" aria-labelledby="hero-title">
+            <div class="container hero-grid">
+                <div class="hero-copy-wrap">
+                    <span class="eyebrow">A better kind of Laptop shop</span>
+                    <h1 id="hero-title">Laptops for <em>what's next.</em></h1>
+                    <p class="hero-copy">Good work deserves good tools. Find a thoughtfully chosen laptop that keeps up
+                        with the way you think, make, and move.</p>
+                    <div class="hero-buttons">
+                        <a class="button button-light" href="#work">Find your next laptop <span class="button-arrow"
+                                aria-hidden="true">↗</span></a>
+                        <a class="button button-outline" href="#about">Why Regino Shop</a>
+                    </div>
+                    <button class="replay-button" id="replayBtn" type="button">↻ Replay intro</button>
+                    <div class="hero-note">
+                        <div class="avatar-stack" aria-hidden="true"><span>J</span><span>M</span><span>A</span></div>
+                        <span>Independent advice, always. <strong>People first, specs second.</strong></span>
+                    </div>
+                </div>
+                <div class="hero-visual" aria-label="Laptop on a desk">
+                    <div class="hero-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&amp;fit=crop&amp;w=1100&amp;q=85"
+                            alt="Open laptop on a warm wooden desk" fetchpriority="high">
+                    </div>
+                    <div class="floating-note">
+                        <span class="note-icon" aria-hidden="true">✦</span>
+                        <span><strong>Picked by people</strong><small>Tested, loved, and ready to go</small></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="trust-strip" aria-label="What makes shopping with us different">
+            <div class="container trust-inner">
+                <strong>Thoughtful tech, no guesswork.</strong>
+                <span class="trust-item"><span class="trust-check" aria-hidden="true">✓</span> Carefully selected</span>
+                <span class="trust-item"><span class="trust-check" aria-hidden="true">✓</span> Honest advice</span>
+                <span class="trust-item"><span class="trust-check" aria-hidden="true">✓</span> Here when you need
+                    us</span>
+            </div>
+        </div>
+
+        <section class="section reveal" id="work" aria-labelledby="work-title">
+            <div class="container">
+                <div class="section-head">
+                    <div class="section-heading">
+                        <span class="eyebrow">The shortlist</span>
+                        <h2 id="work-title">Less scrolling. Better picks.</h2>
+                        <p>A few of our current favorites—each chosen for a reason, not just another spec sheet.</p>
+                    </div>
+                    <a class="button button-outline" href="#contact">Need a recommendation? <span class="button-arrow"
+                            aria-hidden="true">↗</span></a>
+                </div>
+                <div class="products-grid">
+                    <article class="product-card">
+                        <div class="product-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU5CvVKIVGDnUCOXRxtpFgG54NGtwb4i26TgUN-CSQuQ&s=10"
+                                alt="Silver laptop ready for everyday work" loading="lazy">
+                            <span class="product-label">Everyday favorite</span>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-topline">
+                                <h3>Acer</h3><span class="price">Price ₱68,899</span>
+                            </div>
+                            <p>Light to carry, lovely to use, and ready for the long days.</p>
+                            <div class="specs"><span>13″ display</span><span>All-day battery</span><span>1.2 kg</span>
+                            </div>
+                            <a class="product-link" href="#contact" aria-label="Ask about The Daylight">Meet The
+                                Acer <span aria-hidden="true">→</span></a>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr9bfGFlNn_ojErlYJpBcg3vafI4R6K_6SaHxBj3yTKw&s"
+                                alt="Laptop on a clean desk for creative work" loading="lazy">
+                            <span class="product-label">For the Workers</span>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-topline">
+                                <h3>Lenovo</h3><span class="price">Price ₱120,299</span>
+                            </div>
+                            <p>Room to create, power to keep ideas moving, color that pops.</p>
+                            <div class="specs"><span>15″ display</span><span>Creator-ready</span><span>1.7 kg</span>
+                            </div>
+                            <a class="product-link" href="#contact" aria-label="Ask about The Studio">Meet The Lenovo
+                                <span aria-hidden="true">→</span></a>
+                        </div>
+                    </article>
+                    <article class="product-card">
+                        <div class="product-image">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJGUZbgTYneufaIDtHdVbQ6p8OQmzPIItWL0RMNGJY6A&s=10"
+                                alt="Compact laptop for gaming and demanding projects" loading="lazy">
+                            <span class="product-label">Power player</span>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-topline">
+                                <h3>ROG</h3><span class="price">Price ₱89,599</span>
+                            </div>
+                            <p>Serious performance for big builds, big games, and bigger plans.</p>
+                            <div class="specs"><span>16″ display</span><span>High performance</span><span>1.9 kg</span>
+                            </div>
+                            <a class="product-link" href="#contact" aria-label="Ask about The Northstar Pro">Meet The
+                                ROG <span aria-hidden="true">→</span></a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section about-section reveal" id="about" aria-labelledby="about-title">
+            <div class="container about-grid">
+                <div>
+                    <span class="eyebrow">A little different, by design</span>
+                    <h2 id="about-title">A real person for your next big purchase.</h2>
+                </div>
+                <div class="about-copy">
+                    <p>At Regino Shop, we believe finding a laptop should feel simple. We listen first, narrow things
+                        down, and help you choose the right tool for your actual life—not the one with the loudest
+                        marketing.</p>
+                    <ul class="benefit-list">
+                        <li><span class="benefit-icon" aria-hidden="true">✳</span><span><b>Curated, not crowded</b>Only
+                                the laptops we'd recommend to a friend.</span></li>
+                        <li><span class="benefit-icon" aria-hidden="true">↗</span><span><b>Advice that fits
+                                    you</b>Plain-language help, with zero pressure.</span></li>
+                        <li><span class="benefit-icon" aria-hidden="true">♡</span><span><b>Support after
+                                    checkout</b>Questions later? We're still right here.</span></li>
+                        <li><span class="benefit-icon" aria-hidden="true">⌁</span><span><b>Built for the long
+                                    run</b>Thoughtful choices, less tech waste.</span></li>
+                    </ul>
+                    <a class="button" href="#contact">Tell us what you need <span class="button-arrow"
+                            aria-hidden="true">↗</span></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section contact-section reveal" id="contact" aria-labelledby="contact-title">
+            <div class="container contact-panel">
+                <div class="contact-intro">
+                    <span class="eyebrow">Let's figure it out</span>
+                    <h2 id="contact-title">Your next laptop starts with a hello.</h2>
+                    <p>Tell us a little about what you need. A real person from our small team will help you find your
+                        way.</p>
+                    <a class="contact-email" href="mailto:hello@ReginoShop.example">hello@ReginoShop.example <span
+                            aria-hidden="true">↗</span></a>
+                </div>
+                <form class="contact-form" action="#" method="get">
+                    <div class="form-row">
+                        <div class="field">
+                            <label for="name">Your name</label>
+                            <input type="text" id="name" name="name" placeholder="How should we address you?"
+                                autocomplete="name" required>
+                        </div>
+                        <div class="field">
+                            <label for="email">Email address</label>
+                            <input type="email" id="email" name="email" placeholder="you@example.com"
+                                autocomplete="email" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="message">What are you looking for?</label>
+                        <textarea id="message" name="message" rows="5"
+                            placeholder="A little about what you'll use your laptop for..." required></textarea>
+                    </div>
+                    <button class="button button-light" type="submit">Send us a note <span class="button-arrow"
+                            aria-hidden="true">↗</span></button>
+                    <p class="form-note">This demo form is for layout only and doesn't send a message.</p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">R</span><span>Regino
+                    Laptop Shop</span></a>
+            <p class="footer-copy">&copy; 2026 Regino Shop. Good tools for what's next.</p>
+            <div class="footer-links"><a href="#about">O</a><a href="#work">The lineup</a><a href="#contact">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load order matters: GSAP, then ScrollTrigger, then your own script -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
